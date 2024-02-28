@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  screen: {
+  sectionContainer: {
+    flexDirection: "column",
     flex: 1,
-    backgroundColor: "black",
   },
 });
