@@ -10,7 +10,7 @@ interface SearchPageProps {
 const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
     const [newSearch, setNewSearch] = useState('');
     const [moviesAndSeries, setMoviesAndSeries] = useState([]);
-    const [mediaType, setMediaType] = useState('movie');
+    const [mediaType, setMediaType] = useState('');
   
     const filteredMedia = moviesAndSeries.filter((item: any) =>
       item.title.toLowerCase().includes(newSearch.toLowerCase())

@@ -12,14 +12,14 @@ interface DetailsPageProps {
         release_date?: string;
         first_air_date?: string;
         vote_average: number;
+        mediaType: string;
       };
-      mediaType: string;
     };
   };
 }
 
 const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
-  const { media, mediaType } = route.params;
+  const { media } = route.params;
 
   return (
     <ScrollView style={styles.screen}>
@@ -29,11 +29,11 @@ const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
           style={styles.poster}
           source={{ uri: `https://image.tmdb.org/t/p/w500${media.poster_path}` }}
         />
-        <Text style={styles.overview}>Overview: {media.overview}</Text>
-        {mediaType === 'movie' ? (
-          <Text style={styles.overview}>Release Date: {media.release_date} {media.first_air_date}</Text>
+        <Text style={styles.overview}>Overview:{media.overview} </Text>
+        {media.mediaType == 'movie' ? (
+          <Text style={styles.overview}>Release Date: {media.release_date}</Text>
         ) : (
-          <Text style={styles.overview}>First Air Date: {media.first_air_date}</Text>
+          <Text style={styles.overview}>Release Date: {media.first_air_date}</Text>
         )}
         <Text style={styles.note}>Average note: {media.vote_average} / 10</Text>
       </SafeAreaView>
