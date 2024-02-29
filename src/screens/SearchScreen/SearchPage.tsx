@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import MovieOrSeriesItem from '../../screens/SearchScreen/MovieOrSerieItem.tsx';
 
 interface SearchPageProps {
@@ -81,7 +81,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.screen}>
+    <ScrollView style={styles.screen}>
       <TextInput
         style={styles.inputText}
         placeholder="Search for a movie or TV show"
@@ -93,11 +93,16 @@ const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
         value={newSearch}
       />
       <FlatList
-        data={filteredMedia}
-        renderItem={({ item }) => <MovieOrSeriesItem item={item} goToDetails={goToDetails} />}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
+      data={filteredMedia}
+      contentContainerStyle={styles.container}
+      renderItem={({ item }) => (
+        <View style={styles.itemContainer}>
+          <MovieOrSeriesItem item={item} goToDetails={goToDetails} />
+        </View>
+      )}
+      keyExtractor={(item) => item.id.toString()}
+    />
+    </ScrollView>
   );
 };
 
@@ -116,8 +121,18 @@ const styles = StyleSheet.create({
     marginRight: 5,
     paddingLeft: 20,
     color: 'lightgray',
-
-  }
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  itemContainer: {
+    marginLeft: 10,
+    width: '28%',
+    marginBottom: 10,
+  },
 });
 
 export default SearchPage;

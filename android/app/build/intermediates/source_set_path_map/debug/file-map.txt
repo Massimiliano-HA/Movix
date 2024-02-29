@@ -37,6 +37,7 @@ com.movix.app-packageDebugResources-35 /Users/max/Desktop/ansible_tp1/Movix/andr
 com.movix.app-merged_res-36 /Users/max/Desktop/ansible_tp1/Movix/android/app/build/intermediates/merged_res/debug
 com.movix.app-debug-37 /Users/max/Desktop/ansible_tp1/Movix/android/app/src/debug/res
 com.movix.app-main-38 /Users/max/Desktop/ansible_tp1/Movix/android/app/src/main/res
-com.movix.app-packaged_res-39 /Users/max/Desktop/ansible_tp1/Movix/node_modules/react-native-safe-area-context/android/build/intermediates/packaged_res/debug
-com.movix.app-packaged_res-40 /Users/max/Desktop/ansible_tp1/Movix/node_modules/react-native-screens/android/build/intermediates/packaged_res/debug
-com.movix.app-packaged_res-41 /Users/max/Desktop/ansible_tp1/Movix/node_modules/react-native-vector-icons/android/build/intermediates/packaged_res/debug
+com.movix.app-packaged_res-39 /Users/max/Desktop/ansible_tp1/Movix/node_modules/react-native-image-picker/android/build/intermediates/packaged_res/debug
+com.movix.app-packaged_res-40 /Users/max/Desktop/ansible_tp1/Movix/node_modules/react-native-safe-area-context/android/build/intermediates/packaged_res/debug
+com.movix.app-packaged_res-41 /Users/max/Desktop/ansible_tp1/Movix/node_modules/react-native-screens/android/build/intermediates/packaged_res/debug
+com.movix.app-packaged_res-42 /Users/max/Desktop/ansible_tp1/Movix/node_modules/react-native-vector-icons/android/build/intermediates/packaged_res/debug

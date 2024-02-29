@@ -13,49 +13,40 @@ interface MovieOrSeriesItemProps {
 
 const MovieOrSeriesItem: React.FC<MovieOrSeriesItemProps> = ({ item, goToDetails }) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.container} onPress={() => goToDetails(item)}>
-      <Image
-          style={styles.poster}
-          source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-        />
-        <View style={styles.textContainer}>
-            <Text style={styles.text}>{item.title}</Text>
-            <Text style={styles.overview}>{item.overview}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    <View style={styles.itemContainer}>
+      <TouchableOpacity onPress={() => goToDetails(item)}>
+    <Image
+      source={{
+        uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+      }}
+      style={styles.itemImage}
+    />
+    <Text style={styles.itemTitle} numberOfLines={1} ellipsizeMode="tail">
+      {item.title}
+    </Text>
+    </TouchableOpacity>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    text: {
-        textAlign: 'center',
-        fontSize: 23,
-        fontWeight: 'bold',
-        color: 'lightgray',
-        maxWidth: 250,
-    },
-    poster: {
-        width: 150,
-        height: 200,
-        marginRight: 10,
-        marginBottom: 10,
-    },
-    overview: {
-        marginTop: 10,
-        color: 'lightgray',
-        maxWidth: 250,
-        maxHeight: 105,
-        fontSize: 11,
-    },
-    textContainer: {
-        flexDirection: 'column'
-    }
+  itemContainer: {
+    alignItems: "center",
+    marginRight: 10,
+    width: 100, // Définir la même largeur que l'itemImage
+  },
+  itemImage: {
+    width: 100,
+    height: 150,
+    borderRadius: 10,
+  },
+  itemTitle: {
+    marginTop: 5,
+    fontSize: 12,
+    fontWeight: "600",
+    color: "white",
+    textAlign: "center", // Centrer le texte
+  },
 });
 
 export default MovieOrSeriesItem;
