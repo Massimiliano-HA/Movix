@@ -5,6 +5,7 @@ import RegisterScreen from "../../screens/RegisterScreen/RegisterScreen.tsx";
 import HomeScreen from "../../screens/HomeScreen/HomeScreen.tsx";
 import SearchPage from "../../screens/SearchScreen/SearchPage.tsx";
 import { View } from "react-native";
+import TabNavigator from "./TabNavigator.tsx";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,13 @@ const AppNavigator = () => {
       }}
       initialRouteName="Login"
     >
+      <Stack.Screen
+        name="TabNavigator"
+        options={{
+          title: "TabNavigator",
+        }}
+        component={TabNavigator}
+      />
       <Stack.Screen
         name="Login"
         options={{
