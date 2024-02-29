@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,linux,intellij+all,visualstudiocode,reactnative,cocoapods
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,intellij+all,visualstudiocode,reactnative,cocoapods
 
+vendor/
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
 
