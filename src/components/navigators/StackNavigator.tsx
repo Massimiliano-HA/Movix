@@ -13,7 +13,7 @@ const AppNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Login"
+      initialRouteName="Register"
     >
       <Stack.Screen
         name="Login"

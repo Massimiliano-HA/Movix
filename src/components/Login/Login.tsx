@@ -1,12 +1,79 @@
-import React from 'react';
-
-import {View} from 'react-native';
-import {styles} from './Login.style.ts';
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+  Alert,
+} from "react-native";
+import { styles } from "./Login.style.ts";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
-    return (
-        <View style={styles.sectionContainer} />
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const users = useSelector((state: any) => state.user.users); // Annoter le type de useSelector
+
+  useEffect(() => {
+    setNameError(username === "");
+    setPasswordError(password.length < 3);
+  }, [username, password]);
+
+  const handleConnexion = useCallback(() => {
+    if (username === "") {
+      setNameError(true);
+      return;
+    }
+    if (password.length < 3) {
+      setPasswordError(true);
+      return;
+    }
+
+    const foundUser = users.find(
+      (user: any) => user.username === username && user.password === password
     );
+    if (foundUser) {
+      // Authentification réussie, rediriger vers la page suivante
+      // Ici, vous pouvez ajouter la navigation vers votre page suivante
+      // Par exemple, en utilisant React Navigation
+      // navigation.navigate('NextPage');
+      Alert.alert("Connexion réussie", `Bienvenue, ${username} !`);
+    } else {
+      Alert.alert("Erreur", "Nom d'utilisateur ou mot de passe incorrect.");
+    }
+  }, [username, password, users]);
+
+  return (
+    <KeyboardAvoidingView style={styles.sectionContainer} behavior="padding">
+      <Text style={styles.sectionTitle}>Connexion</Text>
+      <View style={styles.inputsContainer}>
+        <TextInput
+          placeholder="Nom d'utilisateur"
+          placeholderTextColor="#BCBCBC"
+          style={nameError ? styles.inputError : styles.input}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
+        <TextInput
+          placeholder="Mot de passe"
+          placeholderTextColor="#BCBCBC"
+          style={passwordError ? styles.inputError : styles.input}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={true}
+        />
+        <TouchableOpacity style={styles.button} onPress={handleConnexion}>
+          <Text style={styles.buttonText}>Se connecter</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
+  );
 };
 
 export default Login;
