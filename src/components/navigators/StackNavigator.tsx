@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../../screens/LoginScreen/LoginScreen.tsx";
 import RegisterScreen from "../../screens/RegisterScreen/RegisterScreen.tsx";
 import HomeScreen from "../../screens/HomeScreen/HomeScreen.tsx";
+import SearchPage from "../../screens/SearchScreen/SearchPage.tsx";
 import { View } from "react-native";
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +36,13 @@ const AppNavigator = () => {
           title: "Accueil",
         }}
         component={HomeScreen}
+      />
+      <Stack.Screen
+        name="Search"
+        options={{
+          title: "Recherche",
+        }}
+        component={SearchPage}
       />
     </Stack.Navigator>
   );
