@@ -15,8 +15,8 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="WatchlistScreen">
-      <Stack.Screen name="WatchlistScreen" component={WatchlistScreen} />
+      <Stack.Navigator initialRouteName="SearchPage">
+      <Stack.Screen name="SearchPage" component={SearchPage} />
       <Stack.Screen name="DetailsPage" component={DetailsPage} />
       </Stack.Navigator>
     </NavigationContainer>

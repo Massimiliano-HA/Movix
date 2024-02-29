@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, SafeAreaView, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, ScrollView, Text, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface DetailsPageProps {
@@ -21,25 +21,48 @@ interface DetailsPageProps {
 
 const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
   const { media, mediaType } = route.params;
+  const [savedMediaData, setSavedMediaData] = useState([]);
+
+  useEffect(() => {
+    // Charge les données sauvegardées depuis AsyncStorage lors du montage du composant
+    loadSavedMediaData();
+  }, []);
+
+  const loadSavedMediaData = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem('savedMediaData');
+      if (storedData) {
+        setSavedMediaData(JSON.parse(storedData));
+      }
+    } catch (error) {
+      console.error('Error loading saved media data:', error);
+    }
+  };
+
+  const renderSavedMediaData = () => {
+    return savedMediaData.map((data) => (
+      <View key={data.id} style={styles.savedMediaDataContainer}>
+        <Text style={styles.savedMediaDataText}>{data.title}</Text>
+        <Text style={styles.savedMediaDataText}>Release Date: {data.release_date || data.first_air_date}</Text>
+        <Text style={styles.savedMediaDataText}>Average note: {data.vote_average} / 10</Text>
+      </View>
+    ));
+  };
 
   const saveToAsyncStorage = async () => {
     try {
-      // Récupérer les données existantes ou initialiser un tableau vide
       const existingDataString = await AsyncStorage.getItem('savedMediaData');
       let existingData = existingDataString ? JSON.parse(existingDataString) : [];
-  
-      // Assurer que existingData est un tableau
+
       if (!Array.isArray(existingData)) {
         existingData = [];
       }
-  
-      // Vérifier si la nouvelle donnée existe déjà dans le tableau
+
       const isNewData = existingData.some((item) => item.title === media.title);
-  
+
       if (!isNewData) {
-        // Ajouter la nouvelle donnée au tableau
         const newData = {
-          id: media.id, 
+          id: media.id,
           title: media.title,
           poster_path: media.poster_path,
           overview: media.overview,
@@ -47,12 +70,11 @@ const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
           first_air_date: media.first_air_date,
           vote_average: media.vote_average,
         };
-  
+
         existingData = [...existingData, newData];
-  
-        // Sauvegarder le tableau mis à jour
+
         await AsyncStorage.setItem('savedMediaData', JSON.stringify(existingData));
-  
+
         console.log('Data saved successfully:', newData);
       } else {
         console.log('Data already exists. Not saving duplicates.');
@@ -61,7 +83,6 @@ const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
       console.error('Error saving data:', error);
     }
   };
-  
 
   return (
     <ScrollView style={styles.screen}>
@@ -83,6 +104,9 @@ const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
         <TouchableOpacity style={styles.saveButton} onPress={saveToAsyncStorage}>
           <Text style={styles.buttonText}>Sauvegarder les Infos</Text>
         </TouchableOpacity>
+
+        {/* Affiche les données sauvegardées */}
+        {renderSavedMediaData()}
       </SafeAreaView>
     </ScrollView>
   );
@@ -111,15 +135,15 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 10,
   },
-  overview: {
+  id: {
     marginTop: 20,
+    marginBottom: 50,
     color: 'lightgray',
     maxWidth: 350,
     fontSize: 15,
   },
-  id: {
+  overview: {
     marginTop: 20,
-    marginBottom: 50,
     color: 'lightgray',
     maxWidth: 350,
     fontSize: 15,
@@ -141,9 +165,20 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
   },
+  savedMediaDataContainer: {
+    marginVertical: 10,
+    padding: 10,
+    backgroundColor: 'gray',
+    borderRadius: 8,
+  },
+  savedMediaDataText: {
+    color: 'white',
+    fontSize: 16,
+  },
 });
 
 export default DetailsPage;
+
 
 
 
