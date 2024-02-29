@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-
-import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { FlatList, Image, ScrollView, Text, View, TouchableOpacity } from "react-native";
 import { styles } from "./Home.style.ts";
 import axios from "axios";
 
@@ -8,12 +8,17 @@ type renderItemProps = {
   item: {
     id?: number;
     title: string;
+    overview: string;
     poster_path: string;
+    release_date?: string;
+    first_air_date?: string;
+    vote_average: number;
     mediaType?: "movie" | "TV";
   };
 };
 
 const Home = () => {
+  const navigation = useNavigation();
   const [popularMovies, setPopularMovies] = useState([]);
   const [popularSeries, setPopularSeries] = useState([]);
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
@@ -42,7 +47,10 @@ const Home = () => {
         (movie: any) => ({
           id: movie.id,
           title: movie.title,
+          overview: movie.overview,
           poster_path: movie.poster_path,
+          release_date: movie.release_date,
+          vote_average: movie.vote_average,
           mediaType: "movie",
         })
       );
@@ -72,7 +80,10 @@ const Home = () => {
         (show: any) => ({
           id: show.id,
           title: show.name,
+          overview: show.overview,
           poster_path: show.poster_path,
+          first_air_date: show.first_air_date,
+          vote_average: show.vote_average,
           mediaType: "TV",
         })
       );
@@ -101,7 +112,10 @@ const Home = () => {
         (movie: any) => ({
           id: movie.id,
           title: movie.title,
+          overview: movie.overview,
           poster_path: movie.poster_path,
+          release_date: movie.release_date,
+          vote_average: movie.vote_average,
           mediaType: "movie",
         })
       );
@@ -131,7 +145,10 @@ const Home = () => {
         (movie: any) => ({
           id: movie.id,
           title: movie.title,
+          overview: movie.overview,
           poster_path: movie.poster_path,
+          release_date: movie.release_date,
+          vote_average: movie.vote_average,
           mediaType: "movie",
         })
       );
@@ -149,17 +166,26 @@ const Home = () => {
   const renderItem = ({ item }: renderItemProps) => (
     <>
       <View style={styles.itemContainer}>
-        <Image
-          source={{
-            uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-          }}
-          style={styles.itemImage}
-        />
-        <Text style={styles.itemTitle} numberOfLines={1} ellipsizeMode="tail">
-          {item.title}
-        </Text>
+      <TouchableOpacity onPress={() => goToDetails(item, item.mediaType)}>
+          <Image
+            source={{
+              uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+            }}
+            style={styles.itemImage}
+          />
+          <Text style={styles.itemTitle} numberOfLines={1} ellipsizeMode="tail">
+            {item.title}
+          </Text>
+        </TouchableOpacity>
       </View>
     </>
+  );
+
+  const goToDetails = useCallback(
+    (item, type) => {
+      navigation.navigate('DetailsPage', { media: item, mediaType: type });
+    },
+    [navigation]
   );
 
   return (

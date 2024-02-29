@@ -17,10 +17,10 @@ const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
     );
   
     const goToDetails = useCallback(
-      (item) => {
-        navigation.navigate('DetailsPage', { media: item, mediaType });
+      (item, type) => {
+        navigation.navigate('DetailsPage', { media: item, mediaType: type });
       },
-      [navigation, mediaType]
+      [navigation]
     );
   
 
@@ -81,11 +81,11 @@ const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.screen}>
+    <View style={styles.screen}>
       <TextInput
         style={styles.inputText}
         placeholder="Search for a movie or TV show"
-        placeholderTextColor= "lightgray"
+        placeholderTextColor="lightgray"
         onChangeText={(text) => {
           setNewSearch(text);
           fetchMedia(text);
@@ -93,46 +93,46 @@ const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
         value={newSearch}
       />
       <FlatList
-      data={filteredMedia}
-      contentContainerStyle={styles.container}
-      renderItem={({ item }) => (
-        <View style={styles.itemContainer}>
-          <MovieOrSeriesItem item={item} goToDetails={goToDetails} />
-        </View>
-      )}
-      keyExtractor={(item) => item.id.toString()}
-    />
-    </ScrollView>
+        data={filteredMedia}
+        contentContainerStyle={styles.listContainer}
+        numColumns={3}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <MovieOrSeriesItem item={item} goToDetails={(item) => goToDetails(item, item.mediaType)} />
+          </View>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </View>
   );
-};
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-  inputText: {
-    backgroundColor: 'grey',
-    fontSize: 17,
-    borderRadius: 5,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    paddingLeft: 20,
-    color: 'lightgray',
-  },
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  itemContainer: {
-    marginLeft: 10,
-    width: '28%',
-    marginBottom: 10,
-  },
-});
+  };
+  
+  const styles = StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: 'black',
+    },
+    inputText: {
+      backgroundColor: 'grey',
+      fontSize: 17,
+      borderRadius: 5,
+      marginTop: 10,
+      marginBottom: 10,
+      marginLeft: 5,
+      marginRight: 5,
+      paddingLeft: 20,
+      color: 'lightgray',
+    },
+    listContainer: {
+      justifyContent: 'space-between',
+      paddingHorizontal: 5,
+    },
+    itemContainer: {
+      marginLeft: 10,
+      width: '33%',
+      marginBottom: 10,
+    },
+  });
+  
 
 export default SearchPage;
