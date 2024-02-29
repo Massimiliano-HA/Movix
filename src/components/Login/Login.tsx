@@ -8,17 +8,26 @@ import {
   Alert,
 } from "react-native";
 import { styles } from "./Login.style.ts";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
-const Login = () => {
+const Login = ({}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [nameError, setNameError] = useState(false);
 
-  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  const users = useSelector((state: any) => state.user.users); // Annoter le type de useSelector
+  const goToRegister = useCallback(() => {
+    navigation.navigate("Register");
+  }, [navigation]);
+
+  const goToHome = useCallback(() => {
+    navigation.navigate("TabNavigator");
+  }, [navigation]);
+
+  const users = useSelector((state: any) => state.user.users);
 
   useEffect(() => {
     setNameError(username === "");
@@ -44,6 +53,7 @@ const Login = () => {
       // Par exemple, en utilisant React Navigation
       // navigation.navigate('NextPage');
       Alert.alert("Connexion réussie", `Bienvenue, ${username} !`);
+      goToHome();
     } else {
       Alert.alert("Erreur", "Nom d'utilisateur ou mot de passe incorrect.");
     }
@@ -70,6 +80,10 @@ const Login = () => {
         />
         <TouchableOpacity style={styles.button} onPress={handleConnexion}>
           <Text style={styles.buttonText}>Se connecter</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={goToRegister}>
+          <Text style={styles.buttonText}>Pas de compte ? Inscrivez-vous</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

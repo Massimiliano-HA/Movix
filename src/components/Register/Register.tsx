@@ -12,6 +12,7 @@ import { styles } from "./Register.style.ts";
 import { launchImageLibrary, MediaType } from "react-native-image-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "./../../redux/reducers/userReducer.ts";
+import { useNavigation } from "@react-navigation/native";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -21,9 +22,14 @@ const Register = () => {
   const [nameError, setNameError] = useState(false);
   const [avatar, setAvatar] = useState<string | null>(null);
 
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const users = useSelector((state: any) => state.user.users);
+
+  const goToLogin = useCallback(() => {
+    navigation.navigate("Login");
+  }, [navigation]);
 
   useEffect(() => {
     setNameError(username === "");
@@ -79,11 +85,11 @@ const Register = () => {
     dispatch(createUser({ username, password, avatar }));
     Alert.alert(
       "Inscription réussie",
-      `Bonjour ${username}, votre mot de passe est le suivant : ${password}. Votre image : ${avatar}`
+      `Bienvenue sur Movix ${username} !\nVotre mot de passe est le suivant : ${password}.`
     );
+    goToLogin();
+    console.log("Utilisateurs enregistrés :", users);
   }, [username, password, avatar, confirmPassword, dispatch, users]);
-
-  console.log("Utilisateurs enregistrés :", users);
 
   return (
     <KeyboardAvoidingView style={styles.sectionContainer} behavior="padding">
