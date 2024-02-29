@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../../screens/HomeScreen/HomeScreen.tsx";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import SearchScreen from "../../screens/SearchScreen/SearchScreen.tsx";
+import SearchPage from "../../screens/SearchScreen/SearchPage.tsx";
 import WatchlistScreen from "../../screens/WatchlistScreen/WatchlistScreen.tsx";
 import { View } from "react-native";
 import { styles } from "./navigators.style.ts";
@@ -41,7 +41,7 @@ function TabNavigator() {
             />
           ),
         }}
-        component={SearchScreen}
+        component={SearchPage}
       />
       <Tab.Screen
         name="Watchlist"
