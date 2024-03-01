@@ -62,6 +62,10 @@ const Register = () => {
   };
 
   const handleRegistration = useCallback(() => {
+    if (username === "" || password === "" || confirmPassword === "") {
+      Alert.alert("Erreur", "Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
     if (username === "") {
       setNameError(true);
       return;
@@ -88,8 +92,11 @@ const Register = () => {
       `Bienvenue sur Movix ${username} !\nVotre mot de passe est le suivant : ${password}.`
     );
     goToLogin();
-    console.log("Utilisateurs enregistrés :", users);
   }, [username, password, avatar, confirmPassword, dispatch, users]);
+
+  useEffect(() => {
+    console.log("Utilisateurs enregistrés :", users);
+  }, [users]);
 
   return (
     <KeyboardAvoidingView style={styles.sectionContainer} behavior="padding">
@@ -126,6 +133,9 @@ const Register = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleRegistration}>
           <Text style={styles.buttonText}>S'inscrire</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={goToLogin}>
+          <Text style={styles.buttonText}>Déjà inscrit ? Connectez-vous</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

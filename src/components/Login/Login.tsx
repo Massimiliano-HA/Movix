@@ -48,10 +48,6 @@ const Login = ({}) => {
       (user: any) => user.username === username && user.password === password
     );
     if (foundUser) {
-      // Authentification réussie, rediriger vers la page suivante
-      // Ici, vous pouvez ajouter la navigation vers votre page suivante
-      // Par exemple, en utilisant React Navigation
-      // navigation.navigate('NextPage');
       Alert.alert("Connexion réussie", `Bienvenue, ${username} !`);
       goToHome();
     } else {
@@ -69,6 +65,7 @@ const Login = ({}) => {
           style={nameError ? styles.inputError : styles.input}
           value={username}
           onChangeText={(text) => setUsername(text)}
+          autoFocus={true}
         />
         <TextInput
           placeholder="Mot de passe"
