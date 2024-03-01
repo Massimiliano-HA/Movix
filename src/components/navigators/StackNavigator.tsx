@@ -14,14 +14,19 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerStyle: {
+          backgroundColor: 'black',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+        },
       }}
       initialRouteName="Login"
     >
       <Stack.Screen
         name="TabNavigator"
         options={{
-          title: "TabNavigator",
+          title: "Movix",
         }}
         component={TabNavigator}
       />

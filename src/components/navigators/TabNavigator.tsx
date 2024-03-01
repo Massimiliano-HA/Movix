@@ -15,7 +15,6 @@ function TabNavigator() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { position: "absolute" },
         tabBarActiveTintColor: "white",
         tabBarBackground: () => <View style={styles.tabBarContainer} />,
       }}

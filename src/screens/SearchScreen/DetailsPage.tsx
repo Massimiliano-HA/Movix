@@ -1,7 +1,5 @@
 import React from 'react';
 import { Text, SafeAreaView, Image, StyleSheet, ScrollView } from 'react-native';
-// import { styles } from '../../../global.style';
-
 interface DetailsPageProps {
   route: {
     params: {
