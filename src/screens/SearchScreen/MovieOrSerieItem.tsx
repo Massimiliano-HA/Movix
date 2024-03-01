@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     alignItems: "center",
     marginRight: 10,
-    width: 100, // Définir la même largeur que l'itemImage
+    width: 100,
   },
   itemImage: {
     width: 100,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
     color: "white",
-    textAlign: "center", // Centrer le texte
+    textAlign: "center",
   },
 });
 

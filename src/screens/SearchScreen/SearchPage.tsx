@@ -84,7 +84,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
     <View style={styles.screen}>
       <TextInput
         style={styles.inputText}
-        placeholder="Search for a movie or TV show"
+        placeholder="Rechercher un film ou une série"
         placeholderTextColor="lightgray"
         onChangeText={(text) => {
           setNewSearch(text);

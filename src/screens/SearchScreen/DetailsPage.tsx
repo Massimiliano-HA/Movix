@@ -22,18 +22,18 @@ const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
   return (
     <ScrollView style={styles.screen}>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Title: {media.title}</Text>
+        <Text style={styles.title}>Titre : {media.title}</Text>
         <Image
           style={styles.poster}
           source={{ uri: `https://image.tmdb.org/t/p/w500${media.poster_path}` }}
         />
-        <Text style={styles.overview}>Overview:{media.overview} </Text>
+        <Text style={styles.overview}>Résumé : {media.overview} </Text>
         {media.mediaType == 'movie' ? (
-          <Text style={styles.overview}>Release Date: {media.release_date}</Text>
+          <Text style={styles.overview}>Date de sortie : {media.release_date}</Text>
         ) : (
-          <Text style={styles.overview}>Release Date: {media.first_air_date}</Text>
+          <Text style={styles.overview}>Date de sortie : {media.first_air_date}</Text>
         )}
-        <Text style={styles.note}>Average note: {media.vote_average} / 10</Text>
+        <Text style={styles.note}>Note moyenne : {media.vote_average} / 10</Text>
       </SafeAreaView>
     </ScrollView>
   );

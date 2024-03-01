@@ -61,7 +61,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name="DetailsPage"
         options={{
-          title: "Détails",
+          title: "Detail",
         }}
         component={DetailsPage}
       />
