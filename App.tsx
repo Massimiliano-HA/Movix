@@ -1,25 +1,21 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React from "react";
+import { Provider } from "react-redux";
+
+import { persistor, store } from "./src/redux/store.ts";
+import { NavigationContainer } from "@react-navigation/native";
 import AppNavigator from "./src/components/navigators/StackNavigator.tsx";
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import TabNavigator from "./src/components/navigators/TabNavigator.tsx";
-import SearchPage from "./src/screens/SearchScreen/SearchPage.tsx";
-import DetailsPage from './src/screens/SearchScreen/DetailsPage.tsx';
-import WatchlistScreen from './src/screens/WatchlistScreen/WatchlistScreen';
-import Watchlist from "../../components/Watchlist/Watchlist.tsx";
 
-const Stack = createNativeStackNavigator();
-
-
+import { PersistGate } from "redux-persist/integration/react";
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="SearchPage">
-      <Stack.Screen name="SearchPage" component={SearchPage} />
-      <Stack.Screen name="DetailsPage" component={DetailsPage} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 };
 
