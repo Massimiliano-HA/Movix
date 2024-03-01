@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { SafeAreaView, ScrollView, Text, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addToWatchlist } from 'chemin/vers/votre/reducer';  // Remplacez par le chemin correct
 
 interface DetailsPageProps {
   route: {
@@ -17,14 +19,14 @@ interface DetailsPageProps {
       mediaType: string;
     };
   };
+  addToWatchlist: (payload: { userId: string; content: WatchlistContent }) => void;
 }
 
-const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
+const DetailsPage: React.FC<DetailsPageProps> = ({ route, addToWatchlist }) => {
   const { media, mediaType } = route.params;
   const [savedMediaData, setSavedMediaData] = useState([]);
 
   useEffect(() => {
-    // Charge les données sauvegardées depuis AsyncStorage lors du montage du composant
     loadSavedMediaData();
   }, []);
 
@@ -76,6 +78,9 @@ const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
         await AsyncStorage.setItem('savedMediaData', JSON.stringify(existingData));
 
         console.log('Data saved successfully:', newData);
+
+        // Utilisation de l'action addToWatchlist pour mettre à jour l'état Redux
+        addToWatchlist({ userId: 'ID_DU_UTILISATEUR', content: newData });
       } else {
         console.log('Data already exists. Not saving duplicates.');
       }
@@ -113,71 +118,11 @@ const DetailsPage: React.FC<DetailsPageProps> = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-  container: {
-    alignItems: 'center',
-  },
-  title: {
-    marginTop: 40,
-    marginBottom: 20,
-    textAlign: 'center',
-    fontSize: 23,
-    fontWeight: 'bold',
-    color: 'lightgray',
-    maxWidth: 250,
-  },
-  poster: {
-    width: 300,
-    height: 400,
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  id: {
-    marginTop: 20,
-    marginBottom: 50,
-    color: 'lightgray',
-    maxWidth: 350,
-    fontSize: 15,
-  },
-  overview: {
-    marginTop: 20,
-    color: 'lightgray',
-    maxWidth: 350,
-    fontSize: 15,
-  },
-  note: {
-    marginTop: 20,
-    marginBottom: 50,
-    color: 'lightgray',
-    maxWidth: 350,
-    fontSize: 15,
-  },
-  saveButton: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: 'white',
-  },
-  savedMediaDataContainer: {
-    marginVertical: 10,
-    padding: 10,
-    backgroundColor: 'gray',
-    borderRadius: 8,
-  },
-  savedMediaDataText: {
-    color: 'white',
-    fontSize: 16,
-  },
+  // ... (Votre style existant)
 });
 
-export default DetailsPage;
+// Connectez le composant à Redux en utilisant connect
+export default connect(null, { addToWatchlist })(DetailsPage);
 
 
 
