@@ -4,7 +4,7 @@ import LoginScreen from "../../screens/LoginScreen/LoginScreen.tsx";
 import RegisterScreen from "../../screens/RegisterScreen/RegisterScreen.tsx";
 import HomeScreen from "../../screens/HomeScreen/HomeScreen.tsx";
 import SearchPage from "../../screens/SearchScreen/SearchPage.tsx";
-import DetailsPage from "../../screens/SearchScreen/DetailsPage.tsx";
+import DetailsPage from "../Details/DetailsPage.tsx";
 import { View } from "react-native";
 import TabNavigator from "./TabNavigator.tsx";
 

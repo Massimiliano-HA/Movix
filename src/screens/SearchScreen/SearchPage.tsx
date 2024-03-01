@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, FlatList, ScrollView } from 'react-native';
-import MovieOrSeriesItem from '../../screens/SearchScreen/MovieOrSerieItem.tsx';
+import MovieOrSeriesItem from '../../components/MovieorSerieItem/MovieOrSerieItem.tsx';
+import { styles } from "./Search.style.ts";
 
 interface SearchPageProps {
   navigation: any;
@@ -106,33 +107,5 @@ const SearchPage: React.FC<SearchPageProps> = ({ navigation }) => {
     </View>
   );
   };
-  
-  const styles = StyleSheet.create({
-    screen: {
-      flex: 1,
-      backgroundColor: 'black',
-    },
-    inputText: {
-      backgroundColor: 'grey',
-      fontSize: 17,
-      borderRadius: 5,
-      marginTop: 10,
-      marginBottom: 10,
-      marginLeft: 5,
-      marginRight: 5,
-      paddingLeft: 20,
-      color: 'lightgray',
-    },
-    listContainer: {
-      justifyContent: 'space-between',
-      paddingHorizontal: 5,
-    },
-    itemContainer: {
-      marginLeft: 10,
-      width: '33%',
-      marginBottom: 10,
-    },
-  });
-  
 
 export default SearchPage;
